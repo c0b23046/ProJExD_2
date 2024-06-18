@@ -12,7 +12,7 @@ diff = {  #移動量辞書
     pg.K_LEFT: (-5, 0),
     pg.K_RIGHT: (5, 0),
 }
-def dict_i():
+def dict_i() -> dict:
     image_dict = {  #画像辞書
         (0, 0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0),
         (5, 0): pg.transform.flip(pg.transform.rotozoom(pg.image.load("fig/3.png"), 180, 2.0), False, True),
@@ -40,7 +40,7 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
-def bomb_accs():
+def bomb_accs() -> tuple:
     accs = [a for a in range(1, 11)]
     bb_imgs = []
     for r in range(1, 11):
