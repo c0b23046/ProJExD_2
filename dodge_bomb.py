@@ -12,6 +12,22 @@ diff = {  #移動量辞書
 }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+#画面端の判定
+def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
+    """
+    引数：こうかとんRect or 爆弾Rect
+    戻り値：横方向・縦方向の真理値タプル（True：画面内／False：画面外)
+    Rectオブジェクトのleft, right, top, bottomの値から画面内・外を判断する
+    """
+    yoko, tate = True, True
+    if rct.left < 0 or WIDTH < rct.right:
+        yoko = False
+    if rct.top < 0 or HEIGHT < rct.bottom:
+        tate = False
+    return yoko, tate
+
+
+
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
@@ -43,6 +59,8 @@ def main():
                 sum_mv[0] += v[0]
                 sum_mv[1] += v[1]
         kk_rct.move_ip(sum_mv)
+        if check_bound(kk_rct) != (True, True):
+            kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
         screen.blit(kk_img, kk_rct)
         bb_rct.move_ip(vx,vy)
         screen.blit(bb_img, bb_rct)
